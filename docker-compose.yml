@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+
+  api:
+    build: "./"
+    image: "api"
+    volumes:
+      - ./:/app
+    restart: on-failure
+    ports:
+      - "8080:80"
+    links:
+      - redis
+      - db
+    environment:
+      - FLASK_APP=run.py
+      - 'RUN=flask run'
+      - SQLALCHEMY_DATABASE_URI=postgres://postgres:pg_pass@db:5432/main
+    command: sh -c 'wait-for db:5432 -- python /app/run.py'
+    depends_on:
+      - redis
+      - db
+
+  redis:
+    hostname: "redis"
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
+  worker:
+    image: "api"
+    volumes:
+      - ./:/app
+    links:
+      - redis
+    command: sh -c 'wait-for redis:6379 -- celery -A app.celery worker --loglevel=info'
+    depends_on:
+      - redis
+      - api
+      - db
+
+  db:
+    image: postgres:11.1
+    environment:
+      POSTGRES_DB: main
+      POSTGRES_PASSWORD: pg_pass

@@ -1,0 +1,39 @@
+MVP: 
+----
+
+Please write an application that serves an API end point to fetch and create members from and to the apps local db. 
+
+Use the attached members_data.csv file to load the member info into the app. 
+
+
+The applications should have end points to do the following:
+1. get all members for a given account
+2. get member by:
+    - id
+    - phone_number
+    - client_member_id  (this is equivalaent to a medical record number, or mrn)
+3. create new member
+
+
+
+
+
+Extra:
+------
+
+Let's assume we want to use this API to upload a csv file
+reading the file and adding the members line by line will be a slow process. 
+so we want to introduce the concept of batch uploads into this API
+
+Some of the files we receive have duplicate members, or different members with the same phone number or same client_member_id
+refer to member_data_with_duplicate_records.csv for example.
+
+We want to enforce uniqueness on phone_number and client_member_id per account. 
+
+Please implement or write out how you would design a csv upload feature that uses the batch API that
+enforces uniqueness on phone_number and client_member_id per account.
+
+
+Note:
+- we receive files up to 5 million rows
+- the batch API will have a max size limit 1000
