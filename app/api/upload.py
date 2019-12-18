@@ -1,34 +1,22 @@
+import logging
 
-from flask import Blueprint, request
+from flask import request
+from .api import upload
 
 from app.worker import tasks
 
-upload = Blueprint('upload', __name__)
+
+logger = logging.getLogger(__name__)
 
 
-@upload.route("/butt/<taskid>", methods=["GET"])
-def get_butt(taskid):
-    task_result = tasks.add.AsyncResult(taskid)
-    if task_result.state == "PENDING":
-        return {
-            "status": "ok",
-            "msg": "pending"
-        }, 202
-    elif task_result.state != "FAILURE":
-        xx = task_result.result
-        return {
-            "status": "ok",
-            "msg": xx
-        }, 200
+@upload.route("/upload", methods=["POST"])
+def post_member():
+    """
+    Client chunks the file upload and sends a payload of (uuid, buffer).
+    API quickly funnels each chunk onto the upload_chunk task for deduping
+    and storing and returns 100 continue to the client.
+    """
+    (guid, chunk) = request.get_data()
+    tasks.upload_chunk.apply_async(args=[guid, chunk], countdown=4)
 
-    return {"status": "err", "msg": "fail"}, 400
-
-
-@upload.route("/butt", methods=["POST"])
-def post_butt():
-    body = request.get_json()
-    name = body.get("name")
-    print("posted name::: ", name)
-
-    t = tasks.add.apply_async(args=[name], countdown=4)
-    return {"status": "ok", "msg": "posted ok", "taskid": t.id}, 202
+    return {"status": "ok", "msg": "posted ok"}, 100

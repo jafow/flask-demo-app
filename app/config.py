@@ -13,12 +13,12 @@ class DefaultConfiguration(object):
     REGION = "us-east-1"
     CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
     CELERY_BROKER_URL = 'redis://redis:6379/0'
-    SQLALCHEMY_DATABASE_URI = "postgres://postgres:pg_pass@db:5432/main"
+    SQLALCHEMY_DATABASE_URI = "postgre://postgres:pg_pass@db:5432/main"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class TestingConfiguration(DefaultConfiguration):
-    SQLALCHEMY_DATABASE_URI = "postgres:pg_pass@db:5432/test"
+    SQLALCHEMY_DATABASE_URI = "postgres://postgres:pg_pass@db:5432/test"
 
 
 def configure_app(app, flask_env=None):

@@ -4,7 +4,7 @@ ENV STATIC_URL /app/static
 ENV STATIC_APP /app/app/static
 
 
-RUN apt-get -q update && apt-get install -qy netcat
+RUN apt-get -q update && apt-get install -qy netcat bash
 
 COPY ./bin/wait-for /usr/bin
 
@@ -17,4 +17,3 @@ RUN  pip install -r /app/requirements.txt
 COPY . /app/
 
 WORKDIR /app
-

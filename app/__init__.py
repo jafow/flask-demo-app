@@ -3,15 +3,11 @@ import json
 
 from celery import Celery
 from flask import Flask
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 
-from app.api import upload
+from app.api import api, upload
 from app.config import configure_app, celery_config
 
-
-db_orm = SQLAlchemy()
-migrate = Migrate()
+from app.extensions import db_orm, migrate, ma
 
 
 def create_app(app_config=None):
@@ -22,8 +18,10 @@ def create_app(app_config=None):
 
     db_orm.init_app(app)
     migrate.init_app(app, db_orm)
+    ma.init_app(app)
 
     app.register_blueprint(upload)
+    app.register_blueprint(api)
 
     @app.route("/ping")
     def ping():
@@ -34,8 +32,6 @@ def create_app(app_config=None):
 
 def create_celery(celery_env=None):
     _config = celery_config(celery_env)
-    print("configggggggggggg class")
-    print(_config)
 
     _celery = Celery(
         'taskq',

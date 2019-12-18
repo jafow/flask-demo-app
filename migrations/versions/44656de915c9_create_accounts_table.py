@@ -22,11 +22,11 @@ seq = f"{table}_id_seq"
 
 
 def upgrade():
-    op.execute(f"CREATE SEQUENCE {seq}")
+    # op.execute(f"CREATE SEQUENCE {seq}")
     op.create_table(
         table,
-        sa.Column("id", sa.BigInteger, autoincrement=True, primary_key=True),
-        sa.Column("acct_id", sa.BigInteger, index=True, unique=True, nullable=False),
+        sa.Column("id", sa.BigInteger, primary_key=True),
+        # sa.Column("acct_id", sa.BigInteger, index=True, nullable=False),
         sa.Column(
             "description",
             sa.String(length=128),
@@ -39,5 +39,5 @@ def upgrade():
 
 
 def downgrade():
-    op.execute(f"DROP SEQUENCE {seq}")
+    # op.execute(f"DROP SEQUENCE {seq}")
     op.drop_table(table)
