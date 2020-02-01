@@ -46,3 +46,14 @@ def create_member(params):
     res = MemberModel(current_app).create(params.get("members", []))
 
     return {"members": members_response.dump(res)}, 200
+
+
+@api.route("/tacos", methods=["GET"])
+@marshall_with(members_request, qs=False)
+def get_tacoc(params):
+    """ get member object by id, phone, or mem_id """
+    logger.info(f"create member with {params}")
+
+    res = MemberModel(current_app).get(params.get("tacos", []))
+
+    return {"tacos": members_response.dump(res)}, 200
