@@ -16,7 +16,7 @@ jobs:
 
       - name: Hello world action step
         id: hello
-        uses: jafow/action-python-format-pr@v1
+        uses: jafow/action-python-format-pr@master
         with:
           target-file-path: ${{ github.workspace }}
       # Use the output from the `hello` step
