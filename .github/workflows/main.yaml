@@ -6,19 +6,19 @@ on:
 jobs:
   hello:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: format .py files
     steps:
       - name: Checkout pr
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - uses: ./
-
-      - name: Hello world action step
+      - name: format
         id: hello
-        uses: jafow/action-python-format-pr@v1
+        uses: jafow/action-python-format-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          target-file-path: ${{ github.workspace }}
+          pr-base-branch: ${{ github.event.pull_request.base.sha }}
       # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.fileslist }}"
+      - name: Get the list of files to be changed
+        run: echo "The time was ${{ steps.format.outputs.fileslist }}"

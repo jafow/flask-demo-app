@@ -33,10 +33,6 @@ def create_app(app_config=None):
 def create_celery(celery_env=None):
     _config = celery_config(celery_env)
 
-    _celery = Celery(
-        'taskq',
-        backend=_config.CELERY_RESULT_BACKEND,
-        broker=_config.CELERY_BROKER_URL
-    )
+    _celery = Celery("taskq", backend=_config.CELERY_RESULT_BACKEND, broker=_config.CELERY_BROKER_URL)
     _celery.conf.update(_config)
     return _celery

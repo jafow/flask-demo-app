@@ -13,6 +13,7 @@ NULL_ACCT_ID = 4199
 
 class MemberModel(Member):
     """ member model methods """
+
     def __init__(self, app):
         super().__init__()
         self.app = app
@@ -30,7 +31,7 @@ class MemberModel(Member):
             instances = []
             new_members = self.only_new_members(members)
             for member in new_members:
-                if not member.get('acct_id', None):
+                if not member.get("acct_id", None):
                     member["acct_id"] = NULL_ACCT_ID
                 logger.debug(f"create member: {member}")
                 member_obj = Member(**member)

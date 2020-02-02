@@ -25,6 +25,7 @@ class MemberRequestSchema(marshmallow.Schema):
 
 class MemberCreateSchema(marshmallow.Schema):
     """ create schema single member """
+
     fname = marshmallow.fields.Str(required=False)
     lname = marshmallow.fields.Str(required=False)
     phone = marshmallow.fields.Str(required=True)
@@ -33,6 +34,7 @@ class MemberCreateSchema(marshmallow.Schema):
 
 class MemberCreateList(marshmallow.Schema):
     """ nested schema create members """
+
     members = marshmallow.fields.List(marshmallow.fields.Nested(MemberCreateSchema))
 
 

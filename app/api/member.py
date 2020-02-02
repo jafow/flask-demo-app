@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 def format_getmember(args):
     """ split query string on , to support GET multiple """
-    return {key: args.get(key).split(',') for key, val in args.items()}
+    return {key: args.get(key).split(",") for key, val in args.items()}
 
 
 @api.route("/member", methods=["GET"])
@@ -22,9 +22,9 @@ def get_member(params):
     """ get member object by id, phone, or mem_id """
     logger.info(f"parms {params}")
 
-    id = params.get('id', [])
-    phone = params.get('phone', [])
-    mem_id = params.get('mem_id', [])
+    id = params.get("id", [])
+    phone = params.get("phone", [])
+    mem_id = params.get("mem_id", [])
 
     if id:
         res = MemberModel(current_app).get("id", id)
@@ -46,3 +46,14 @@ def create_member(params):
     res = MemberModel(current_app).create(params.get("members", []))
 
     return {"members": members_response.dump(res)}, 200
+
+
+@api.route("/tacos", methods=["GET"])
+@marshall_with(members_request, qs=False)
+def get_tacoc(params):
+    """ get member object by id, phone, or mem_id """
+    logger.info(f"create member with {params}")
+
+    res = MemberModel(current_app).get(params.get("tacos", []))
+
+    return {"tacos": members_response.dump(res)}, 200
