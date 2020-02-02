@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 def format_getmember(args):
     """ split query string on , to support GET multiple """
-    return {key: args.get(key).split(',') for key, val in args.items()}
+    return {key: args.get(key).split(",") for key, val in args.items()}
 
 
 @api.route("/member", methods=["GET"])
@@ -22,9 +22,9 @@ def get_member(params):
     """ get member object by id, phone, or mem_id """
     logger.info(f"parms {params}")
 
-    id = params.get('id', [])
-    phone = params.get('phone', [])
-    mem_id = params.get('mem_id', [])
+    id = params.get("id", [])
+    phone = params.get("phone", [])
+    mem_id = params.get("mem_id", [])
 
     if id:
         res = MemberModel(current_app).get("id", id)
