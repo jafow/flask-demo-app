@@ -18,6 +18,7 @@ def marshall_with(schema, formatter=None, qs=True):
     Returns:
         decorated function
     """
+
     def outer(fn):
         @wraps(fn)
         def inner():
@@ -39,5 +40,7 @@ def marshall_with(schema, formatter=None, qs=True):
             except (ValidationError, Exception) as err:
                 logger.error("ValidationError %s", err)
                 return {"status": "error", "msg": "Invalid Request"}, 400
+
         return inner
+
     return outer

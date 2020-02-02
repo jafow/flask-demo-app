@@ -82,4 +82,5 @@ def member_fixture(app, request, db, account_fixture):
 
         request.addfinalizer(cleanup)
         return member
+
     yield _member_fixture

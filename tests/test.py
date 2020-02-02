@@ -38,9 +38,7 @@ def test_get_member_by_memid(client, member_fixture):
 
 def test_get_member_by_phone(client, member_fixture):
     """ test get member by memid """
-    test_member = member_fixture(
-        {"mem_id": 1212, "phone": "8185551122", "fname": "Test", "lname": "Testing"}
-    )
+    test_member = member_fixture({"mem_id": 1212, "phone": "8185551122", "fname": "Test", "lname": "Testing"})
 
     rv = client.get(f"/member?phone={test_member.phone}")
     res = json.loads(rv.data)
@@ -68,12 +66,7 @@ def test_get_multiple(client, member_fixture):
 
 
 def test_create_member(client, member_fixture):
-    new_member = {
-        "mem_id": 88,
-        "fname": "Create",
-        "lname": "Test",
-        "phone": "5550012211",
-    }
+    new_member = {"mem_id": 88, "fname": "Create", "lname": "Test", "phone": "5550012211"}
     rv = client.post(f"/member", json={"members": [new_member]})
     res = json.loads(rv.data)
 

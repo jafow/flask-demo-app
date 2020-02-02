@@ -6,6 +6,7 @@ from app.db.account import Account
 
 class AccountModel(Account):
     """ account model methods """
+
     def __init__(self, app):
         super().__init__()
         self.app = app

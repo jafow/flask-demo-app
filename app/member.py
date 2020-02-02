@@ -17,4 +17,3 @@
 #     acct_id = Column(BigInteger, ForeignKey("account.id"), nullable=False)
 #     created_at = Column("created_at", DateTime(timezone=True), default=datetime.utcnow)
 #     updated_at = Column("updated_at", DateTime(timezone=True), default=datetime.utcnow)
-

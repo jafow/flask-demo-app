@@ -14,7 +14,7 @@ cli = app.cli
 
 @cli.command()
 def hello():
-    print('hello')
+    print("hello")
 
 
 @cli.command()
@@ -26,7 +26,7 @@ def loadmembers():
     # create null account type
     AccountModel(app).create([{"id": NULL_ACCT_ID, "description": "NULL ACCOUNT"}])
 
-    with open('data/member_data.csv') as f:
+    with open("data/member_data.csv") as f:
         reader = csv.DictReader(f)
         lines = [
             {
@@ -38,7 +38,7 @@ def loadmembers():
                 "mem_id": line.get("client_member_id", NULL_ACCT_ID),
                 "acct_id": line.get("account_id"),
                 "created_at": datetime.utcnow(),
-                "updated_at": datetime.utcnow()
+                "updated_at": datetime.utcnow(),
             }
             for line in reader
         ]
@@ -53,5 +53,5 @@ def loadmembers():
         print(f"created {len(res)}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cli()

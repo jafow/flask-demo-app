@@ -20,4 +20,3 @@
 #                 results.append(member_obj)
 #             db_orm.session.commit()
 #         return results
-
