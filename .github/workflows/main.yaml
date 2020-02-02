@@ -10,13 +10,13 @@ jobs:
     steps:
       - name: Checkout pr
         uses: actions/checkout@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: format
         id: hello
         uses: jafow/action-python-format-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           pr-base-branch: ${{ github.event.pull_request.base.sha }}
       # Use the output from the `hello` step
