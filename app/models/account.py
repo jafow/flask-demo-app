@@ -12,13 +12,16 @@ class AccountModel(Account):
         self.app = app
 
     def create(self, accounts: list):
+        """ making a REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAAAALY long line """
         results = []
         with self.app.app_context():
             for account in accounts:
                 if isinstance(account, dict):
                     acct_obj = Account(**account)
                 else:
-                    aid = {"id": int(account) if account else NULL_ACCT_ID}
+                    aid = {
+                        "id": int(account) if account else NULL_ACCT_ID
+                    }
                     acct_obj = Account(**aid)
                 db_orm.session.merge(acct_obj)
                 results.append(acct_obj)
