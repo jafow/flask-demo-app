@@ -3,7 +3,6 @@
 from app.extensions import db_orm, NULL_ACCT_ID
 from app.db.account import Account
 
-
 class AccountModel(Account):
     """ account model methods """
 
@@ -26,4 +25,9 @@ class AccountModel(Account):
                 db_orm.session.merge(acct_obj)
                 results.append(acct_obj)
             db_orm.session.commit()
+            a = 'just putting this here'
         return results
+
+
+
+
