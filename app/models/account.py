@@ -3,6 +3,7 @@
 from app.extensions import db_orm, NULL_ACCT_ID
 from app.db.account import Account
 
+
 class AccountModel(Account):
     """ account model methods """
 
@@ -18,16 +19,10 @@ class AccountModel(Account):
                 if isinstance(account, dict):
                     acct_obj = Account(**account)
                 else:
-                    aid = {
-                        "id": int(account) if account else NULL_ACCT_ID
-                    }
+                    aid = {"id": int(account) if account else NULL_ACCT_ID}
                     acct_obj = Account(**aid)
                 db_orm.session.merge(acct_obj)
                 results.append(acct_obj)
             db_orm.session.commit()
-            a = 'just putting this here'
+            a = "just putting this here"
         return results
-
-
-
-
